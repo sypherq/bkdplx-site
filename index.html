@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Duplex — Coming Soon</title>
+  <meta name="description" content="Book Duplex — real-time order-book analytics. Coming soon." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+
+  <style>
+    /* ================================================================
+       Reset & Base
+       ================================================================ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont,
+                   'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ================================================================
+       Background — dark UI gradient + geometric shapes
+       ================================================================ */
+    body {
+      background: linear-gradient(145deg, #0A1A22 0%, #0F2B34 50%, #0A1A22 100%);
+      color: #d8d8e4;
+      position: relative;
+    }
+
+    /* Geometric layer — soft brand-colored shapes at very low opacity */
+    .geo-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .geo-bg svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Subtle animated drift */
+    .geo-drift {
+      animation: drift 50s ease-in-out infinite alternate;
+      transform-origin: center center;
+    }
+
+    @keyframes drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(-12px, 8px) scale(1.01); }
+      100% { transform: translate(8px, -6px) scale(1); }
+    }
+
+    /* ================================================================
+       Contact — upper-left
+       ================================================================ */
+    .contact-link {
+      position: fixed;
+      top: 28px;
+      left: 32px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: rgba(216, 216, 228, 0.5);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      transition: color 0.3s ease;
+    }
+
+    .contact-link:hover {
+      color: rgba(216, 216, 228, 0.85);
+    }
+
+    .contact-link svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .contact-link:hover svg {
+      opacity: 0.9;
+    }
+
+    /* ================================================================
+       Center content block
+       ================================================================ */
+    .center-block {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 24px;
+      text-align: center;
+
+      /* Fade-in on load */
+      opacity: 0;
+      animation: fadeIn 1.6s ease-out 0.2s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Logo */
+    .logo-wrap {
+      width: clamp(180px, 32vw, 360px);
+      margin-bottom: 28px;
+    }
+
+    .logo-wrap svg {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 4px 24px rgba(74, 191, 191, 0.12));
+    }
+
+    /* Subtitle */
+    .subtitle {
+      font-size: clamp(14px, 2vw, 20px);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: rgba(216, 216, 228, 0.35);
+    }
+
+    /* ================================================================
+       Mobile adjustments
+       ================================================================ */
+    @media (max-width: 480px) {
+      .contact-link {
+        top: 16px;
+        left: 16px;
+        font-size: 12px;
+      }
+
+      .logo-wrap {
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       Geometric background layer
+       ============================================================ -->
+  <div class="geo-bg" aria-hidden="true">
+    <svg class="geo-drift" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Brand gradients -->
+        <linearGradient id="gPrimary" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#6FD6D3"/>
+          <stop offset="100%" stop-color="#FF5A4A"/>
+        </linearGradient>
+        <linearGradient id="gAccent" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#5EDFD8"/>
+          <stop offset="100%" stop-color="#F5A25C"/>
+        </linearGradient>
+        <linearGradient id="gTeal" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4ABFBF"/>
+          <stop offset="100%" stop-color="#0A1A22"/>
+        </linearGradient>
+        <linearGradient id="gCoral" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E06B5B"/>
+          <stop offset="100%" stop-color="#0F2B34"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Large soft diamond — top-right -->
+      <rect x="850" y="-120" width="500" height="500"
+            rx="6" transform="rotate(45 1100 130)"
+            fill="url(#gPrimary)" opacity="0.035"/>
+
+      <!-- Angled rectangle — left -->
+      <rect x="-100" y="350" width="600" height="300"
+            rx="4" transform="rotate(-20 200 500)"
+            fill="url(#gAccent)" opacity="0.03"/>
+
+      <!-- Thin chevron echo — center -->
+      <polyline points="420,680 720,520 1020,680"
+                stroke="url(#gPrimary)" stroke-width="1.5"
+                fill="none" opacity="0.06"/>
+      <polyline points="380,710 720,530 1060,710"
+                stroke="url(#gAccent)" stroke-width="1"
+                fill="none" opacity="0.04"/>
+
+      <!-- Small tilted square — bottom-right -->
+      <rect x="1100" y="600" width="200" height="200"
+            rx="3" transform="rotate(30 1200 700)"
+            fill="url(#gTeal)" opacity="0.04"/>
+
+      <!-- Horizontal line grid — very subtle -->
+      <line x1="0" y1="280" x2="1440" y2="280" stroke="#4ABFBF" stroke-width="0.5" opacity="0.04"/>
+      <line x1="0" y1="620" x2="1440" y2="620" stroke="#E06B5B" stroke-width="0.5" opacity="0.04"/>
+
+      <!-- Floating diamond — upper-left -->
+      <rect x="80" y="60" width="140" height="140"
+            rx="3" transform="rotate(45 150 130)"
+            fill="url(#gCoral)" opacity="0.03"/>
+
+      <!-- Subtle radial glow behind center content -->
+      <circle cx="720" cy="420" r="320"
+              fill="url(#gPrimary)" opacity="0.02"/>
+    </svg>
+  </div>
+
+  <!-- ============================================================
+       Contact — upper-left
+       ============================================================ -->
+  <a class="contact-link" href="mailto:info@bkdplx.com" aria-label="Contact us via email">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+         stroke-linecap="round" stroke-linejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2"/>
+      <path d="M22 4L12 13 2 4"/>
+    </svg>
+    Contact
+  </a>
+
+  <!-- ============================================================
+       Center content
+       ============================================================ -->
+  <main class="center-block">
+    <!-- BkDplx logo -->
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none" role="img" aria-label="BkDplx logo">
+        <polyline points="52,100 200,16 348,100"
+          stroke="#E06B5B" stroke-width="14"
+          stroke-linecap="butt" stroke-linejoin="miter"
+          fill="none"/>
+        <text x="200" y="178" text-anchor="middle"
+          font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+          font-weight="900" font-size="90">
+          <tspan fill="#4ABFBF">Bk</tspan><tspan fill="#E06B5B">Dplx</tspan>
+        </text>
+      </svg>
+    </div>
+
+    <p class="subtitle">Coming Soon&hellip;</p>
+  </main>
+
+</body>
+</html>

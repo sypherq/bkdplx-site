@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none">
+  <!-- Roof chevron — thick stroke, open V, centered at x=200 -->
+  <polyline points="52,100 200,16 348,100"
+    stroke="#E06B5B" stroke-width="14"
+    stroke-linecap="butt" stroke-linejoin="miter"
+    fill="none"/>
+  <!-- Text: BkDplx — centered via text-anchor, two-tone via tspan -->
+  <text x="200" y="178" text-anchor="middle"
+    font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+    font-weight="900" font-size="90">
+    <tspan fill="#4ABFBF">Bk</tspan><tspan fill="#E06B5B">Dplx</tspan>
+  </text>
+</svg>
