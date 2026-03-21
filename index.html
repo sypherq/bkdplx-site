@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Duplex — Coming Soon</title>
-  <meta name="description" content="Book Duplex — real-time order-book analytics. Coming soon." />
+  <title>Book Duplex — Private Beta</title>
+  <meta name="description" content="Book Duplex is currently in private beta. Invited users can sign in now, and new users can apply for access." />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 
   <style>
@@ -13,9 +13,23 @@
        ================================================================ */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --bg-deep: #0a1a22;
+      --bg-mid: #0f2b34;
+      --text-main: #d8d8e4;
+      --text-muted: rgba(216, 216, 228, 0.66);
+      --text-subtle: rgba(216, 216, 228, 0.4);
+      --line-soft: rgba(216, 216, 228, 0.14);
+      --line-strong: rgba(216, 216, 228, 0.24);
+      --teal: #4abfbf;
+      --teal-bright: #6fd6d3;
+      --coral: #e06b5b;
+      --shadow-soft: 0 18px 60px rgba(0, 0, 0, 0.24);
+    }
+
     html, body {
-      height: 100%;
-      overflow: hidden;
+      min-height: 100%;
+      overflow-x: hidden;
       font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont,
                    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -26,8 +40,8 @@
        Background — dark UI gradient + geometric shapes
        ================================================================ */
     body {
-      background: linear-gradient(145deg, #0A1A22 0%, #0F2B34 50%, #0A1A22 100%);
-      color: #d8d8e4;
+      background: linear-gradient(145deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-deep) 100%);
+      color: var(--text-main);
       position: relative;
     }
 
@@ -69,7 +83,7 @@
       align-items: center;
       gap: 8px;
       text-decoration: none;
-      color: rgba(216, 216, 228, 0.5);
+      color: rgba(216, 216, 228, 0.54);
       font-size: 13px;
       font-weight: 500;
       letter-spacing: 0.04em;
@@ -91,6 +105,35 @@
       opacity: 0.9;
     }
 
+    .utility-link {
+      position: fixed;
+      top: 22px;
+      right: 28px;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(216, 216, 228, 0.18);
+      border-radius: 999px;
+      background: rgba(10, 26, 34, 0.36);
+      color: rgba(216, 216, 228, 0.92);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(18px);
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .utility-link:hover {
+      transform: translateY(-1px);
+      border-color: rgba(216, 216, 228, 0.32);
+      background: rgba(10, 26, 34, 0.56);
+    }
+
     /* ================================================================
        Center content block
        ================================================================ */
@@ -101,8 +144,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      padding: 24px;
+      min-height: 100vh;
+      padding: 104px 24px 48px;
       text-align: center;
 
       /* Fade-in on load */
@@ -114,10 +157,22 @@
       to { opacity: 1; }
     }
 
+    .hero-shell {
+      width: min(100%, 760px);
+      padding: clamp(28px, 5vw, 44px);
+      border: 1px solid rgba(216, 216, 228, 0.12);
+      border-radius: 28px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%),
+        rgba(7, 17, 22, 0.34);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(20px);
+    }
+
     /* Logo */
     .logo-wrap {
       width: clamp(180px, 32vw, 360px);
-      margin-bottom: 28px;
+      margin: 0 auto 24px;
     }
 
     .logo-wrap svg {
@@ -126,12 +181,113 @@
       filter: drop-shadow(0 4px 24px rgba(74, 191, 191, 0.12));
     }
 
-    /* Subtitle */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      color: rgba(216, 216, 228, 0.7);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(216, 216, 228, 0), rgba(216, 216, 228, 0.28));
+    }
+
+    .eyebrow::after {
+      background: linear-gradient(90deg, rgba(216, 216, 228, 0.28), rgba(216, 216, 228, 0));
+    }
+
+    .headline {
+      max-width: 12ch;
+      margin: 0 auto 16px;
+      color: #f4f5fb;
+      font-size: clamp(2.35rem, 7vw, 4.9rem);
+      line-height: 0.96;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+    }
+
     .subtitle {
-      font-size: clamp(14px, 2vw, 20px);
+      max-width: 33rem;
+      margin: 0 auto;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.65;
       font-weight: 400;
-      letter-spacing: 0.12em;
-      color: rgba(216, 216, 228, 0.35);
+      letter-spacing: 0.01em;
+      color: var(--text-muted);
+    }
+
+    .cta-group {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-1px);
+    }
+
+    .cta-primary {
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, var(--teal-bright) 0%, var(--coral) 100%);
+      color: #071116;
+      box-shadow: 0 18px 34px rgba(74, 191, 191, 0.16);
+    }
+
+    .cta-primary:hover {
+      box-shadow: 0 20px 42px rgba(224, 107, 91, 0.18);
+    }
+
+    .cta-secondary {
+      border: 1px solid var(--line-strong);
+      background: rgba(7, 17, 22, 0.32);
+      color: #f1f2fa;
+      backdrop-filter: blur(18px);
+    }
+
+    .cta-secondary:hover {
+      border-color: rgba(216, 216, 228, 0.34);
+      background: rgba(7, 17, 22, 0.48);
+    }
+
+    .entry-note {
+      margin-top: 26px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(216, 216, 228, 0.1);
+      color: var(--text-subtle);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      line-height: 1.6;
+    }
+
+    .entry-note strong {
+      color: rgba(216, 216, 228, 0.74);
+      font-weight: 600;
     }
 
     /* ================================================================
@@ -144,8 +300,48 @@
         font-size: 12px;
       }
 
+      .utility-link {
+        top: 14px;
+        right: 16px;
+        min-height: 38px;
+        padding: 0 14px;
+        font-size: 11px;
+      }
+
+      .center-block {
+        padding: 92px 16px 24px;
+      }
+
+      .hero-shell {
+        padding: 24px 20px;
+        border-radius: 22px;
+      }
+
       .logo-wrap {
         margin-bottom: 20px;
+      }
+
+      .headline {
+        max-width: 10ch;
+        margin-bottom: 14px;
+        font-size: clamp(2rem, 13vw, 3.1rem);
+      }
+
+      .subtitle {
+        font-size: 0.97rem;
+        line-height: 1.58;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      .cta {
+        width: 100%;
+      }
+
+      .entry-note {
+        font-size: 12px;
       }
     }
   </style>
@@ -228,27 +424,102 @@
     Contact
   </a>
 
+  <a class="utility-link" data-auth-login-link href="#" aria-label="Sign in to Book Duplex">
+    Sign In
+  </a>
+
   <!-- ============================================================
        Center content
        ============================================================ -->
   <main class="center-block">
-    <!-- BkDplx logo -->
-    <div class="logo-wrap">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none" role="img" aria-label="BkDplx logo">
-        <polyline points="52,100 200,16 348,100"
-          stroke="#E06B5B" stroke-width="14"
-          stroke-linecap="butt" stroke-linejoin="miter"
-          fill="none"/>
-        <text x="200" y="178" text-anchor="middle"
-          font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
-          font-weight="900" font-size="90">
-          <tspan fill="#4ABFBF">Bk</tspan><tspan fill="#E06B5B">Dplx</tspan>
-        </text>
-      </svg>
-    </div>
+    <section class="hero-shell" aria-label="Private beta entry">
+      <!-- BkDplx logo -->
+      <div class="logo-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" fill="none" role="img" aria-label="BkDplx logo">
+          <polyline points="52,100 200,16 348,100"
+            stroke="#E06B5B" stroke-width="14"
+            stroke-linecap="butt" stroke-linejoin="miter"
+            fill="none"/>
+          <text x="200" y="178" text-anchor="middle"
+            font-family="'Arial Black', 'Helvetica Neue', Arial, sans-serif"
+            font-weight="900" font-size="90">
+            <tspan fill="#4ABFBF">Bk</tspan><tspan fill="#E06B5B">Dplx</tspan>
+          </text>
+        </svg>
+      </div>
 
-    <p class="subtitle">Coming Soon&hellip;</p>
+      <p class="eyebrow">Private Beta</p>
+      <h1 class="headline">Entry is open by invite.</h1>
+      <p class="subtitle">
+        Book Duplex is currently in private beta. Invited users can sign in now.
+        New users can apply for access.
+      </p>
+
+      <div class="cta-group">
+        <a class="cta cta-primary" data-beta-apply-link href="#" target="_blank" rel="noreferrer noopener">Apply for Private Beta</a>
+        <a class="cta cta-secondary" data-auth-login-link href="#">Sign In</a>
+      </div>
+
+      <p class="entry-note">
+        <strong>Current status:</strong> local auth is ready for invited users. Domain routing can be
+        swapped later by updating the landing-page link config only.
+      </p>
+    </section>
   </main>
+
+  <script>
+    const DEFAULT_AUTH_BASE_URL = window.location.hostname === "localhost"
+      ? "http://localhost:5173"
+      : "https://app.bkdplx.com";
+
+    const DEFAULT_APPLY_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdVPJLck8aTsiHlH0FBmBSYnxWIsS_Cnk2WNa40wupNZ6kvnA/viewform?usp=header";
+
+    const runtimeConfig = window.BKDPLX_LANDING_CONFIG || {};
+
+    const pickConfigValue = (...values) => {
+      const value = values.find((candidate) => typeof candidate === "string" && candidate.trim().length > 0);
+      return value ? value.trim() : "";
+    };
+
+    const buildUrl = (target, fallbackBasePath) => {
+      const cleanedTarget = pickConfigValue(target);
+
+      if (!cleanedTarget) {
+        return fallbackBasePath;
+      }
+
+      try {
+        return new URL(cleanedTarget).toString();
+      } catch (error) {
+        return new URL(cleanedTarget, window.location.origin).toString();
+      }
+    };
+
+    const authBaseUrl = pickConfigValue(
+      runtimeConfig.authBaseUrl,
+      document.documentElement.dataset.authBaseUrl,
+      DEFAULT_AUTH_BASE_URL
+    );
+
+    const applyUrl = pickConfigValue(
+      runtimeConfig.applyUrl,
+      runtimeConfig.betaApplyUrl,
+      document.documentElement.dataset.applyUrl,
+      document.documentElement.dataset.betaApplyUrl,
+      DEFAULT_APPLY_URL
+    );
+
+    const authLoginUrl = new URL("/auth/login", authBaseUrl).toString();
+    const resolvedApplyUrl = buildUrl(applyUrl, DEFAULT_APPLY_URL);
+
+    document.querySelectorAll("[data-auth-login-link]").forEach((link) => {
+      link.href = authLoginUrl;
+    });
+
+    document.querySelectorAll("[data-beta-apply-link]").forEach((link) => {
+      link.href = resolvedApplyUrl;
+    });
+  </script>
 
 </body>
 </html>
