@@ -105,11 +105,17 @@
       opacity: 0.9;
     }
 
-    .utility-link {
+    .utility-actions {
       position: fixed;
       top: 22px;
       right: 28px;
       z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .utility-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -275,21 +281,6 @@
       background: rgba(7, 17, 22, 0.48);
     }
 
-    .entry-note {
-      margin-top: 26px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(216, 216, 228, 0.1);
-      color: var(--text-subtle);
-      font-size: 13px;
-      letter-spacing: 0.04em;
-      line-height: 1.6;
-    }
-
-    .entry-note strong {
-      color: rgba(216, 216, 228, 0.74);
-      font-weight: 600;
-    }
-
     /* ================================================================
        Mobile adjustments
        ================================================================ */
@@ -300,9 +291,13 @@
         font-size: 12px;
       }
 
-      .utility-link {
+      .utility-actions {
         top: 14px;
         right: 16px;
+        gap: 8px;
+      }
+
+      .utility-link {
         min-height: 38px;
         padding: 0 14px;
         font-size: 11px;
@@ -338,10 +333,6 @@
 
       .cta {
         width: 100%;
-      }
-
-      .entry-note {
-        font-size: 12px;
       }
     }
   </style>
@@ -424,9 +415,14 @@
     Contact
   </a>
 
-  <a class="utility-link" data-auth-login-link href="#" aria-label="Sign in to Book Duplex">
-    Sign In
-  </a>
+  <div class="utility-actions" aria-label="Authentication actions">
+    <a class="utility-link" data-auth-login-link href="#" aria-label="Log in to Book Duplex">
+      Login
+    </a>
+    <a class="utility-link" data-auth-signup-link href="#" aria-label="Sign up for Book Duplex">
+      Sign Up
+    </a>
+  </div>
 
   <!-- ============================================================
        Center content
@@ -457,13 +453,9 @@
 
       <div class="cta-group">
         <a class="cta cta-primary" data-beta-apply-link href="#" target="_blank" rel="noreferrer noopener">Apply for Private Beta</a>
-        <a class="cta cta-secondary" data-auth-login-link href="#">Sign In</a>
+        <a class="cta cta-secondary" data-auth-login-link href="#">Login</a>
+        <a class="cta cta-secondary" data-auth-signup-link href="#">Sign Up</a>
       </div>
-
-      <p class="entry-note">
-        <strong>Current status:</strong> local auth is ready for invited users. Domain routing can be
-        swapped later by updating the landing-page link config only.
-      </p>
     </section>
   </main>
 
@@ -508,10 +500,15 @@
     );
 
     const authLoginUrl = new URL("/auth/login", authBaseUrl).toString();
+    const authSignupUrl = new URL("/auth/signup", authBaseUrl).toString();
     const resolvedApplyUrl = buildUrl(applyUrl, DEFAULT_APPLY_URL);
 
     document.querySelectorAll("[data-auth-login-link]").forEach((link) => {
       link.href = authLoginUrl;
+    });
+
+    document.querySelectorAll("[data-auth-signup-link]").forEach((link) => {
+      link.href = authSignupUrl;
     });
 
     document.querySelectorAll("[data-beta-apply-link]").forEach((link) => {
